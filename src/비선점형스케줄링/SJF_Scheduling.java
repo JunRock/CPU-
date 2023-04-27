@@ -17,8 +17,8 @@ public class SJF_Scheduling {
         BufferedReader br=null;
         Queue<String> q=new LinkedList<>();
         int [] arrtime=new int[5];
-
-        int processId,arriveTime,serviceTime,retime; //프로세스ID, 도착시간, 작업시간, 반환시간
+        String processId;
+        int arriveTime,serviceTime,retime; //프로세스ID, 도착시간, 작업시간, 반환시간
         int c;
         int num=0;
         String [] process=new String[5];
@@ -31,32 +31,34 @@ public class SJF_Scheduling {
                 String line = br.readLine();
                 if (line == null)
                     break;
-               q.add(line);
+               process[num++]=line;
             }
         }
         catch (IOException e){
             e.printStackTrace();
         }
-        Iterator iterator=q.iterator();
 
-        while(iterator.hasNext()){
-            System.out.println(iterator.next());
-        }
-        /*String  []tmp=new String[5]; //실행시간 순으로 정렬된 프로세스
-        int [] ser_time=new int[5]; //실행시간을 저장하는 배열
+        /*
+        최단 작업 시간 프로세스순대로 정렬
+         */
         int min=0;
-
         for(int i=0;i<process.length;i++){
             StringTokenizer st=new StringTokenizer(process[i]);
-            while(st.hasMoreTokens()){
-                st.nextToken();
-                st.nextToken();
-                ser_time[i]=Integer.parseInt(st.nextToken());
-                st.nextToken();
-                st.nextToken();
+            while (st.hasMoreTokens()){
+                processId=st.nextToken();
+                arriveTime=Integer.parseInt(st.nextToken());
+                serviceTime=Integer.parseInt(st.nextToken());
+                st.nextToken(); st.nextToken();
+                if(arriveTime<=min){
+                    q.add(process[i]);
+                    min+=1;
+                }
+               // else
+
+
             }
-            if()
-        }*/
+        }
+
 
     }
 
