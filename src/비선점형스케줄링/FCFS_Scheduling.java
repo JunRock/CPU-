@@ -13,7 +13,6 @@ public class FCFS_Scheduling {
         Queue<String> q = new LinkedList<>();
         int[] arrtime = new int[5];
         int arriveTime, serviceTime, retime; //프로세스ID, 도착시간, 작업시간, 반환시간
-        int c;
         int num = 0;
         String[] process = new String[5];
         /*
@@ -34,11 +33,9 @@ public class FCFS_Scheduling {
         int[] tmp_time = new int[5];
         int sum = 0;
         int arrsum = 0; //프로세스 대기시간 총합
-        int resum = 0;
         double re_time_sum = 0;
         int[] time = new int[5]; //프로세스 별 반환시간 저장배열
 
-        int min = 0;
         for (int i = 0; i < process.length; i++) {
             StringTokenizer st = new StringTokenizer(process[i]);
             while (st.hasMoreTokens()) {
@@ -89,21 +86,22 @@ public class FCFS_Scheduling {
                 st.nextToken(); //시간 할당량
             }
         }
-
+        j = 0;
         System.out.println("평균 대기 시간(AWT): " + arrsum / process.length);
-        for (int i = 0; i < process.length; i++) {
-            StringTokenizer st = new StringTokenizer(process[i]);
+        it = q.iterator();
+        while (it.hasNext()) {
+            String str = (String) it.next();
+            StringTokenizer st = new StringTokenizer(str);
             while (st.hasMoreTokens()) {
-                System.out.println(st.nextToken() + "의 반환시간: " + time[i]); //프로세스 ID
+                System.out.println(st.nextToken() + "의 반환시간: " + time[j]); //프로세스 ID
                 st.nextToken();
                 st.nextToken();
                 st.nextToken(); //우선순위
                 st.nextToken(); //시간 할당량
             }
-            re_time_sum += time[i];
+            re_time_sum += time[j++];
         }
-
-        System.out.println("평균 반환 시간(ATT): " + re_time_sum / process.length);
+        System.out.println("평균 반환 시간(ATT): "+re_time_sum /process.length);
     }
 
     public static void main(String[] args) {

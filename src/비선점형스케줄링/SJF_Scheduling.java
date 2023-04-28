@@ -124,19 +124,21 @@ public class SJF_Scheduling {
         }
 
         System.out.println("평균 대기 시간(AWT): " + arrsum / process.length);
-        for (int i = 0; i < process.length; i++) {
-            StringTokenizer st = new StringTokenizer(process[i]);
+        j=0;
+        it = q.iterator();
+        while (it.hasNext()) {
+            String str = (String) it.next();
+            StringTokenizer st = new StringTokenizer(str);
             while (st.hasMoreTokens()) {
-                System.out.println(st.nextToken() + "의 반환시간: " + time[i]); //프로세스 ID
+                System.out.println(st.nextToken() + "의 반환시간: " + time[j]); //프로세스 ID
                 st.nextToken();
                 st.nextToken();
                 st.nextToken(); //우선순위
                 st.nextToken(); //시간 할당량
             }
-            re_time_sum += time[i];
+            re_time_sum += time[j++];
         }
-
-        System.out.println("평균 반환 시간(ATT): " + re_time_sum / process.length);
+        System.out.println("평균 반환 시간(ATT): "+re_time_sum /process.length);
     }
 
     public static void main(String[] args) {
