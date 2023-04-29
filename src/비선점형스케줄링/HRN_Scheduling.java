@@ -31,7 +31,8 @@ public class HRN_Scheduling {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        String tmp_processId;
+        double tmp_servicetime,tmp_arrivetime;
         int sum = 0,tmp_sum=0;
         double arrsum = 0,tmp_arrsum=0; //프로세스 대기시간 총합
         int resum = 0;
@@ -43,21 +44,67 @@ public class HRN_Scheduling {
          */
         for(int i=0;i<process.length;i++){
             StringTokenizer st=new StringTokenizer(process[i]);
-            while(st.hasMoreTokens()){
-                processId=st.nextToken();
-                arriveTime=Double.parseDouble(st.nextToken());
-                serviceTime=Double.parseDouble(st.nextToken());
-                st.nextToken();st.nextToken();
-                if(arriveTime==0)
+            while(st.hasMoreTokens()) {
+                processId = st.nextToken();
+                arriveTime = Double.parseDouble(st.nextToken());
+                serviceTime = Double.parseDouble(st.nextToken());
+                st.nextToken();
+                st.nextToken();
+                if (arriveTime == 0) {
                     q.add(process[i]);
-                //tmp_q.add(process[i]);
+                    tmp_q.add(process[i]);
+                }
             }
         }
         /*
         덱에서 하나씩 꺼내서 HRN우선순위 판별
          */
-        for(int i=0;i<process.length;i++) {
+        String []tmp=new String[1];
+        for(int i=0;i< process.length;i++){
+            StringTokenizer str=new StringTokenizer(q.peekLast());
+            double max_priority=0;
+            while(str.hasMoreTokens()){
+                tmp_processId=str.nextToken();
+                tmp_servicetime=Integer.parseInt(str.nextToken());
+                tmp_arrivetime=Integer.parseInt(str.nextToken());
+                sum += tmp_servicetime; //실행시간 총합
+                str.nextToken();str.nextToken();
+            }
 
+            for(int k=0;k< process.length;k++){
+                int count=0;
+                StringTokenizer st1=new StringTokenizer(process[k]);
+                while(st1.hasMoreTokens()){
+                    processId=st1.nextToken();
+                    arriveTime=Integer.parseInt(st1.nextToken());
+                    serviceTime=Integer.parseInt(st1.nextToken());
+                    /*
+                    이미 큐 안에 동일한 프로세스가 들어가 있는지 확인
+                     */
+                    Iterator it= q.iterator();
+                    while(it.hasNext()){
+                        String s= (String) it.next();
+                        StringTokenizer s1=new StringTokenizer(s);
+                        while(s1.hasMoreTokens()){
+                            String Id=s1.nextToken();
+                            if(Id.equals(processId))
+                                count++;
+                        }
+                    }
+                    if(count==0) { //실제 우선순위를 구하는 작업을 하는 조건문
+                            Math.max(max_priority,(serviceTime+(sum-arriveTime))/serviceTime);
+                            tmp[0]=process[k];
+                    }
+                    st1.nextToken();st1.nextToken();
+                }
+            }
+            q.addLast(tmp[0]);
+            tmp_q.add(tmp[0]);
+        }
+
+        Iterator it=tmp_q.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
         }
     }
 
