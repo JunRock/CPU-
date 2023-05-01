@@ -8,188 +8,143 @@ import java.util.*;
 
 public class Priority_Scheduling_비선점 {
     public void run(){
-        File f=new File("c:\\Temp\\OS.txt");
-        FileReader fin=null;
-        BufferedReader br=null;
-        Queue<String> q=new LinkedList<>();
-        Queue<String>tmp_q=new LinkedList<>(); //동일한 우선순위일 경우 도착시간에 따른 정렬까지 마침
-        int [] arrtime=new int[5];
+        File f = new File("c:\\Temp\\OS.txt");
+        FileReader fin = null;
+        BufferedReader br = null;
+        Deque<String> q = new LinkedList<>();
+        Queue<String> tmp_q = new LinkedList<>(); //동일한 우선순위일 경우 도착시간에 따른 정렬까지 마침
+        int[] arrtime = new int[5];
         String processId = null;
-        int arriveTime = 0,serviceTime,retime; //프로세스ID, 도착시간, 작업시간, 반환시간
+        int arriveTime = 0, serviceTime, retime; //프로세스ID, 도착시간, 작업시간, 반환시간
         int priority = 0;
-        int num=0;
-        String [] process=new String[5];
-        /*
-        파일데이터 입력
-         */
-        try{
-            br=new BufferedReader(new FileReader(f));
-            while(true) {
+        int num = 0;
+        String[] process = new String[5];
+
+        try {
+            br = new BufferedReader(new FileReader(f));
+            while (true) {
                 String line = br.readLine();
                 if (line == null)
                     break;
-                process[num++]=line;
+                process[num++] = line;
             }
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         int[] tmp_servicetime = new int[5];
-        int[] tmp_arrivetime=new int[5];
-        int[] tmp_priority=new int[5];
-        String[] tmp_processId=new String[5];
+        int[] tmp_arrivetime = new int[5];
+        int[] tmp_priority = new int[5];
+        String[] tmp_processId = new String[5];
 
         int sum = 0;
         double arrsum = 0; //프로세스 대기시간 총합
-        int resum = 0;
         double re_time_sum = 0;
         int[] time = new int[5]; //프로세스 별 반환시간 저장배열
+        String[] cpu_process = new String[5];
 
-        int Min = 0;
         for (int i = 0; i < process.length; i++) {
             StringTokenizer st = new StringTokenizer(process[i]);
             while (st.hasMoreTokens()) {
                 processId = st.nextToken(); //프로세스 ID
-                arriveTime = Integer.parseInt(st.nextToken()); //도착시간
-                serviceTime = Integer.parseInt(st.nextToken()); //실행시간
-                priority=Integer.parseInt(st.nextToken()); //우선순위
+                tmp_arrivetime[i] = Integer.parseInt(st.nextToken()); //도착시간
+                tmp_servicetime[i] = Integer.parseInt(st.nextToken()); //실행시간
+                tmp_priority[i] = Integer.parseInt(st.nextToken()); //우선순위
                 st.nextToken(); //시간 할당량
-
-                /*
-                프로세스 도착시간 정렬
-                 */
-                if(arriveTime==0){ //도착시간이 0인 프로세스는 바로 큐에 삽입
-                    q.add(process[i]);
-                }
-
-                tmp_servicetime[i]=serviceTime; //실행시간 저장
-                tmp_arrivetime[i]=arriveTime; //도착시간 저장
-                tmp_processId[i]=processId; //프로세스 ID저장
-                tmp_priority[i]=priority; //우선순위 저장
             }
         }
+        Arrays.sort(tmp_arrivetime);
 
-        Arrays.sort(tmp_priority);
-
-        for(int i=0;i< process.length;i++){
-            for(int k=0;k< process.length;k++){
-                int count=0;
-                StringTokenizer st1=new StringTokenizer(process[k]);
-                while(st1.hasMoreTokens()){
-                    processId=st1.nextToken();
-                    arriveTime=Integer.parseInt(st1.nextToken());
-                    serviceTime=Integer.parseInt(st1.nextToken());
-                    priority=Integer.parseInt(st1.nextToken());
-                    /*
-                    이미 큐 안에 동일한 프로세스가 들어가 있는지 확인
-                     */
-                    Iterator it=q.iterator();
-                    while(it.hasNext()){
-                        String s= (String) it.next();
-                        StringTokenizer s1=new StringTokenizer(s);
-                        while(s1.hasMoreTokens()){
-                            String Id=s1.nextToken();
-                            if(Id.equals(processId))
-                                count++;
-                        }
-                    }
-
-                    if(count==0) {
-                        if (priority == tmp_priority[i]) {
-                            q.add(process[k]);
-                        }
-                    }
-                    st1.nextToken();
-                }
-            }
-        }
-        int m=0;
-        String[] tmp_pri=new String[5];
-        Iterator t=q.iterator();
-        while(t.hasNext()){
-            tmp_pri[m++]= (String) t.next();
-        }
-        /*
-        동일한 우선순위가 있는 경우를 확인, 우선순위 정렬 완료
-         */
         for (int i = 0; i < process.length; i++) {
-            String str=q.remove();
-            StringTokenizer st = new StringTokenizer(str);
+            for (int j = 0; j < process.length; j++) {
+                StringTokenizer st = new StringTokenizer(process[j]);
+                while (st.hasMoreTokens()) {
+                    processId = st.nextToken();
+                    arriveTime = Integer.parseInt(st.nextToken());
+                    serviceTime = Integer.parseInt(st.nextToken());
+                    priority = Integer.parseInt(st.nextToken());
+                    st.nextToken();
+                    if (tmp_arrivetime[i] == arriveTime) {
+                        cpu_process[i] = process[j];
+                    }
+                }
+            }
+        }
+
+        String[] tmp_arr = new String[cpu_process.length - 1];
+        String[] arr = new String[cpu_process.length - 1];
+        int[] tmp_priority1 = new int[cpu_process.length - 1];
+        int[] tmp_servicetime1 = new int[cpu_process.length - 1];
+        int[] tmp_arrivetime1 = new int[cpu_process.length - 1];
+        for (int i = 0; i < cpu_process.length - 1; i++) {
+            tmp_arr[i] = cpu_process[i + 1]; //2 3 4 5 프로세스 정렬
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            StringTokenizer st = new StringTokenizer(tmp_arr[i]);
             while (st.hasMoreTokens()) {
                 processId = st.nextToken(); //프로세스 ID
-                arriveTime = Integer.parseInt(st.nextToken()); //도착시간
-                serviceTime = Integer.parseInt(st.nextToken()); //실행시간
-                priority=Integer.parseInt(st.nextToken()); //우선순위
+                tmp_arrivetime1[i] = Integer.parseInt(st.nextToken()); //도착시간
+                tmp_servicetime1[i] = Integer.parseInt(st.nextToken()); //실행시간
+                tmp_priority1[i] = Integer.parseInt(st.nextToken()); //우선순위
                 st.nextToken(); //시간 할당량
-                /*
-                프로세스 도착시간 정렬
-                 */
-                if(arriveTime==0){ //도착시간이 0인 프로세스는 바로 큐에 삽입
-                    tmp_q.add(str); //우선순위, 도착시간을 고려해서 정렬되어있는 큐
+            }
+        }
+        Arrays.sort(tmp_priority1); //1 2 2 4
+
+        for(int i=0;i<arr.length;i++){
+            int count=0;
+            for(int j=0;j<arr.length;j++){
+                StringTokenizer st=new StringTokenizer(tmp_arr[j]);
+                int mcount=0;
+                while(st.hasMoreTokens()){
+                    processId=st.nextToken();
+                    arriveTime=Integer.parseInt(st.nextToken());
+                    serviceTime=Integer.parseInt(st.nextToken());
+                    priority=Integer.parseInt(st.nextToken());
+                    st.nextToken();
                 }
-                //tmp_servicetime[i]=serviceTime; //실행시간 저장
-                tmp_arrivetime[i]=arriveTime; //도착시간 저장
-                tmp_processId[i]=processId; //프로세스 ID저장
-                //tmp_priority[i]=priority; //우선순위 저장
+                Iterator iterator=q.iterator(); //큐에 동일 프로세스가 있는 지 확인
+                while(iterator.hasNext()){
+                    StringTokenizer stringTokenizer=new StringTokenizer((String) iterator.next());
+                    String proId=stringTokenizer.nextToken();
+                    stringTokenizer.nextToken();stringTokenizer.nextToken();stringTokenizer.nextToken();stringTokenizer.nextToken();
+                    if(processId.equals(proId))
+                        mcount++;
+                }
+                if(tmp_priority1[i]==priority&& mcount==0){
+                    count++; //동일한 우선순위가 있는지 확인
+                    tmp_q.add(tmp_arr[j]);
+                }
+            }
+            if(count==1){
+                while(!tmp_q.isEmpty()){
+                    q.add(tmp_q.poll());
+                }
+            }
+            else if(count>1){
+                String str1=tmp_q.poll();
+                String str2=tmp_q.poll();
+                StringTokenizer stringTokenizer1=new StringTokenizer(str1);
+                StringTokenizer stringTokenizer2=new StringTokenizer(str2);
+                while(stringTokenizer1.hasMoreTokens()&&stringTokenizer2.hasMoreTokens()){
+                    stringTokenizer1.nextToken();
+                    int atime1=Integer.parseInt(stringTokenizer1.nextToken());
+                    stringTokenizer1.nextToken();stringTokenizer1.nextToken();stringTokenizer1.nextToken();
+                    stringTokenizer2.nextToken();
+                    int atime2=Integer.parseInt(stringTokenizer2.nextToken());
+                    stringTokenizer2.nextToken();stringTokenizer2.nextToken();stringTokenizer2.nextToken();
+                    if(atime1>atime2)
+                        q.add(str2);
+                    else
+                        q.add(str1);
+                }
             }
         }
 
-        for(int i=0;i<tmp_pri.length;i++){
-            int count=0;
-            String s1=tmp_pri[i];
-            StringTokenizer st=new StringTokenizer(s1);
-            while(st.hasMoreTokens()){
-                processId=st.nextToken();
-                arriveTime=Integer.parseInt(st.nextToken());
-                serviceTime=Integer.parseInt(st.nextToken());
-                priority=Integer.parseInt(st.nextToken());
-                st.nextToken();
-            }
-            //for(int j=0;j<tmp_pri.length;j++){
-                Iterator iterator=tmp_q.iterator();
-                while(iterator.hasNext()){
-                    StringTokenizer st_tmp=new StringTokenizer((String) iterator.next());
-                    String Id=st_tmp.nextToken();
-                    int tmp_arr=Integer.parseInt(st_tmp.nextToken());
-                    int tmp_ser=Integer.parseInt(st_tmp.nextToken());
-                    int tmp_p=Integer.parseInt(st_tmp.nextToken());
-                    st_tmp.nextToken();
-                    if(Id.equals(processId)){
-                        count++;
-                    }
-                }
-                if(count==0){
-                    int tmp_c=0;
-                    Queue<Integer> index=new LinkedList<>();
-                    for(int j=0;j<tmp_pri.length;j++){
-                        if(priority==tmp_priority[j]){
-                            tmp_c++;
-                            index.add(j);
-                        }
-                     }
-                    if(tmp_c<2){
-                        tmp_q.add(tmp_pri[i]);
-                    }
-                    else{
-                        for(int in=0;in<index.size();in++){
-                            int tmp_index=index.remove();
-                            if(i==tmp_index)
-                                continue;
-                            else{
-                                if(arriveTime>tmp_arrivetime[tmp_index]){
-                                    tmp_q.add(tmp_pri[tmp_index]);
-                                }
-                            }
-                        }
-                    }
-                 }
-        }
-        /*
-        출력문
-         */
+        q.addFirst(cpu_process[0]);
         int j = 0;
-        Iterator it = tmp_q.iterator();
+        Iterator it = q.iterator();
         while (it.hasNext()) {
             String str = (String) it.next();
             StringTokenizer st = new StringTokenizer(str);
@@ -208,8 +163,8 @@ public class Priority_Scheduling_비선점 {
         }
 
         System.out.println("평균 대기 시간(AWT): " + arrsum / process.length);
-        j=0;
-        it = tmp_q.iterator();
+        j = 0;
+        it = q.iterator();
         while (it.hasNext()) {
             String str = (String) it.next();
             StringTokenizer st = new StringTokenizer(str);
@@ -222,7 +177,7 @@ public class Priority_Scheduling_비선점 {
             }
             re_time_sum += time[j++];
         }
-        System.out.println("평균 반환 시간(ATT): "+re_time_sum /process.length);
+        System.out.println("평균 반환 시간(ATT): " + re_time_sum / process.length);
     }
 
     public static void main(String[] args) {
