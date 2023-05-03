@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class RR_Scheduling {
+public class SRT_Scheduling {
     public void run(){
         FIle_Open fIle_open=new FIle_Open();
         String []process;
@@ -60,36 +60,36 @@ public class RR_Scheduling {
         int total_servicetime=0;
 
         while(total_servicetime!=servicetime_sum) {
-                if (q.size() != 0) {
-                    String str = q.poll();
-                    StringTokenizer st = new StringTokenizer(str);
-                    while (st.hasMoreTokens()) {
-                        processId = st.nextToken();
-                        arriveTime = Integer.parseInt(st.nextToken());
-                        serviceTime = Integer.parseInt(st.nextToken());
-                        st.nextToken();
-                        for (int i = 1; i <= process_count; i++) {
-                            if (tmp_time[i] == arriveTime) {
-                                if (save_servicetime[i] >= time_quantum) {
-                                    wait_time[i] += (total_servicetime - tmp_arrivetime[i]); //대기시간 저장
-                                    save_servicetime[i] -= time_quantum;
-                                    total_servicetime += time_quantum;
-                                    tmp_arrivetime[i] = total_servicetime;
-                                    if(save_servicetime[i]==0){
-                                        return_time[i]=total_servicetime-arriveTime;
-                                        break;
-                                    }
-                                    q.add(str);
+            if (q.size() != 0) {
+                String str = q.poll();
+                StringTokenizer st = new StringTokenizer(str);
+                while (st.hasMoreTokens()) {
+                    processId = st.nextToken();
+                    arriveTime = Integer.parseInt(st.nextToken());
+                    serviceTime = Integer.parseInt(st.nextToken());
+                    st.nextToken();
+                    for (int i = 1; i <= process_count; i++) {
+                        if (tmp_time[i] == arriveTime) {
+                            if (save_servicetime[i] >= time_quantum) {
+                                wait_time[i] += (total_servicetime - tmp_arrivetime[i]); //대기시간 저장
+                                save_servicetime[i] -= time_quantum;
+                                total_servicetime += time_quantum;
+                                tmp_arrivetime[i] = total_servicetime;
+                                if(save_servicetime[i]==0){
+                                    return_time[i]=total_servicetime-arriveTime;
+                                    break;
                                 }
-                                else if (save_servicetime[i] != 0 && save_servicetime[i] < time_quantum) {
-                                    wait_time[i] += (total_servicetime - tmp_arrivetime[i]);
-                                    total_servicetime += save_servicetime[i];
-                                    q.add(str);
-                                }
+                                q.add(str);
+                            }
+                            else if (save_servicetime[i] != 0 && save_servicetime[i] < time_quantum) {
+                                wait_time[i] += (total_servicetime - tmp_arrivetime[i]);
+                                total_servicetime += save_servicetime[i];
+                                q.add(str);
                             }
                         }
                     }
                 }
+            }
         }
         int wait_sum=0;
         int return_sum=0;
@@ -107,7 +107,7 @@ public class RR_Scheduling {
     }
 
     public static void main(String[] args) {
-        RR_Scheduling rr_scheduling=new RR_Scheduling();
-        rr_scheduling.run();
+        SRT_Scheduling srt_scheduling=new SRT_Scheduling();
+        srt_scheduling.run();
     }
 }

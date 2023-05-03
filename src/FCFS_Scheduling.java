@@ -21,7 +21,6 @@ public class FCFS_Scheduling {
                 arriveTime = Integer.parseInt(st.nextToken()); //도착시간
                 serviceTime = Integer.parseInt(st.nextToken()); //실행시간
                 st.nextToken(); //우선순위
-
                 tmp_time[i] = arriveTime; //도착시간 모음배열
             }
         }
