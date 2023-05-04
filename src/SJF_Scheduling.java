@@ -17,6 +17,7 @@ public class SJF_Scheduling {
         int[] tmp_servicetime = new int[process_count];
         int[] tmp_arrivetime=new int[process_count];
         String[] tmp_processId=new String[process_count];
+        int total_servicetime=0;
 
         for (int i = 1; i <= process_count; i++) {
             StringTokenizer st = new StringTokenizer(process[i]);
@@ -31,7 +32,6 @@ public class SJF_Scheduling {
                 if(arriveTime==0){ //도착시간이 0인 프로세스는 바로 큐에 삽입
                     q.add(process[i]);
                 }
-
                 tmp_servicetime[i-1]=serviceTime; //실행시간 저장
                 tmp_arrivetime[i-1]=arriveTime; //도착시간 저장
                 tmp_processId[i-1]=processId; //프로세스 ID저장
@@ -50,7 +50,7 @@ public class SJF_Scheduling {
                     serviceTime=Integer.parseInt(st1.nextToken());
                     /*
                     이미 큐 안에 동일한 프로세스가 들어가 있는지 확인
-                     */
+                    */
                     Iterator it=q.iterator();
                     while(it.hasNext()){
                         String s= (String) it.next();
@@ -63,6 +63,7 @@ public class SJF_Scheduling {
                     }
 
                     if(count==0) {
+                        //total_servicetime+=serviceTime; &&arriveTime<=total_servicetime
                         if (serviceTime == tmp_servicetime[i-1]) {
                             q.add(process[k]);
                         }
