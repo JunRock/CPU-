@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Priority_Scheduling_비선점 {
+public class Nonpreemptive_Scheduling {
     public void run(){
         FIle_Open fIle_open=new FIle_Open();
         String []process;
@@ -125,7 +125,7 @@ public class Priority_Scheduling_비선점 {
     }
 
     public static void main(String[] args) {
-        Priority_Scheduling_비선점 priority_scheduling_비선점=new Priority_Scheduling_비선점();
+        Nonpreemptive_Scheduling priority_scheduling_비선점=new Nonpreemptive_Scheduling();
         priority_scheduling_비선점.run();
     }
 }
