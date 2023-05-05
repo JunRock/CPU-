@@ -72,7 +72,7 @@ public class SJF_Scheduling {
                 }
             }
         }
-        Print_Process print_process=new Print_Process();
+        Nonpreemptive_Print_Process print_process=new Nonpreemptive_Print_Process();
         print_process.print(q,process_count);
     }
 

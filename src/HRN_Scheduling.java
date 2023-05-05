@@ -85,7 +85,7 @@ public class HRN_Scheduling {
             tmp_q.add(tmp);
         }
         tmp_q.pollLast(); //마지막 요소 삭제
-        Print_Process print_process=new Print_Process();
+        Nonpreemptive_Print_Process print_process=new Nonpreemptive_Print_Process();
         print_process.print(tmp_q,process_count);
     }
 

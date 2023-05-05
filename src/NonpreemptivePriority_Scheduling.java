@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Nonpreemptive_Scheduling {
+public class NonpreemptivePriority_Scheduling {
     public void run(){
         FIle_Open fIle_open=new FIle_Open();
         String []process;
@@ -120,12 +120,12 @@ public class Nonpreemptive_Scheduling {
         }
 
         q.addFirst(cpu_process[0]);
-        Print_Process print_process=new Print_Process();
+        Nonpreemptive_Print_Process print_process=new Nonpreemptive_Print_Process();
         print_process.print(q,process_count);
     }
 
     public static void main(String[] args) {
-        Nonpreemptive_Scheduling priority_scheduling_비선점=new Nonpreemptive_Scheduling();
+        NonpreemptivePriority_Scheduling priority_scheduling_비선점=new NonpreemptivePriority_Scheduling();
         priority_scheduling_비선점.run();
     }
 }

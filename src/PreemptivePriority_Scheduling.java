@@ -1,17 +1,15 @@
 import java.util.*;
 
-public class Preemptive_Scheduling {
+public class PreemptivePriority_Scheduling {
     public void run() {
         FIle_Open fIle_open=new FIle_Open();
         String []process;
         process=fIle_open.open(); //파일에서 process배열에 저장
-        int num=FIle_Open.num;
 
         int process_count=Integer.parseInt(process[0]);
         Vector<Integer>v=new Vector<>();
         Vector<Integer>sertime_v=new Vector<>();
         Vector<Integer>arrtime_v=new Vector<>();
-        int[] arrtime = new int[process_count+1];
         String processId = null;
         int arriveTime = 0, serviceTime; //프로세스ID, 도착시간, 작업시간, 반환시간
         int priority = 0;
@@ -38,7 +36,9 @@ public class Preemptive_Scheduling {
             }
         }
         Arrays.sort(tmp_priority);
-
+/*
+프로세스 정렬
+ */
         for(int i=1;i<=process_count;i++){
             int count=0;
             for(int j=1;j<=process_count;j++){
@@ -110,23 +110,12 @@ public class Preemptive_Scheduling {
                 }
             }
         }
-        int wait_sum=0;
-        int return_sum=0;
-        for(int i=1;i<=process_count;i++){
-            System.out.println(tmp_processId[i]+"의 대기시간: "+wait_time[i]);
-            wait_sum+=wait_time[i];
-        }
-        System.out.println("평균 대기 시간: "+(double)wait_sum/process_count);
-
-        for(int i=1;i<=process_count;i++){
-            System.out.println(tmp_processId[i]+"의 반환시간: "+return_time[i]);
-            return_sum+=return_time[i];
-        }
-        System.out.println("평균 반환 시간: "+(double)return_sum/process_count);
+        Preemptive_Print_Process print_process=new Preemptive_Print_Process();
+        print_process.print(process_count,wait_time,tmp_processId,return_time);
     }
 
     public static void main(String[] args) {
-        Preemptive_Scheduling preemptive_scheduling = new Preemptive_Scheduling();
+        PreemptivePriority_Scheduling preemptive_scheduling = new PreemptivePriority_Scheduling();
         preemptive_scheduling.run();
     }
 }

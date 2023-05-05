@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Print_Process {
+public class Nonpreemptive_Print_Process {
     public void print(Deque<String> q, int process_count){
         String processId;
         int[] arrtime = new int[process_count];
