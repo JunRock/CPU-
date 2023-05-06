@@ -1,40 +1,22 @@
 import java.util.*;
 
-public class PreemptivePriority_Scheduling {
+public class PreemptivePriority_Scheduling extends Process_Variable{
     public void run() {
-        FIle_Open fIle_open=new FIle_Open();
-        String []process;
-        process=fIle_open.open(); //파일에서 process배열에 저장
+        process=open();
 
-        int process_count=Integer.parseInt(process[0]);
         Vector<Integer>v=new Vector<>();
         Vector<Integer>sertime_v=new Vector<>();
         Vector<Integer>arrtime_v=new Vector<>();
-        String processId = null;
-        int arriveTime = 0, serviceTime; //프로세스ID, 도착시간, 작업시간, 반환시간
-        int priority = 0;
-        int servicetime_sum=0;
-        int[] tmp_servicetime = new int[process_count+1];
-        int[] tmp_arrivetime = new int[process_count+1];
-        int[] tmp_priority = new int[process_count+1];
-        int[] wait_time=new int[process_count+1];
-        int[] return_time=new int[process_count+1];
-        String[] tmp_processId = new String[process_count+1];
         String[] cpu_process = new String[process_count+1];
-        int [] save_servicetime=new int[process_count+1];
-        int index = 0;
-        int c=1;
-        int gc=0;
-
+        int index = 0,c=1,gc=0;
         for (int i = 1; i <= process_count; i++) {
             StringTokenizer st = new StringTokenizer(process[i]);
-            while (st.hasMoreTokens()) {
                 tmp_processId[i] = st.nextToken(); //프로세스 ID
                 tmp_arrivetime[i] = Integer.parseInt(st.nextToken()); //도착시간
                 tmp_servicetime[i] = Integer.parseInt(st.nextToken()); //실행시간
                 tmp_priority[i] = Integer.parseInt(st.nextToken()); //우선순위
+                st.nextToken();
                 servicetime_sum+=tmp_servicetime[i];
-            }
         }
         Arrays.sort(tmp_priority);
         String[] ganttchatt=new String[servicetime_sum];
@@ -52,8 +34,8 @@ public class PreemptivePriority_Scheduling {
                    if(tmp_priority[i]==priority&&tmp_processId[j]!="0"){
                        count++;
                        v.add(j);//인덱스를 담음
-                       sertime_v.add(serviceTime);
-                       arrtime_v.add(arriveTime);
+                       sertime_v.add((int)serviceTime);
+                       arrtime_v.add((int)arriveTime);
                    }
             }
             if(count==1){
@@ -91,8 +73,8 @@ public class PreemptivePriority_Scheduling {
             tmp_arrivetime[i] = Integer.parseInt(st.nextToken()); //도착시간
             tmp_servicetime[i] = Integer.parseInt(st.nextToken()); //실행시간
             tmp_priority[i] = Integer.parseInt(st.nextToken()); //우선순위
+            restime[i]=Integer.parseInt(st.nextToken());
         }
-
 
         int total_servicetime=0;
         while(total_servicetime!=servicetime_sum){
@@ -104,21 +86,19 @@ public class PreemptivePriority_Scheduling {
                 priority = Integer.parseInt(st.nextToken());
                 if(total_servicetime>=arriveTime&&save_servicetime[i]!=0){
                     wait_time[i]+=(total_servicetime-tmp_arrivetime[i]);
+                    if(response_time[i]==0)
+                        response_time[i]= (int) ((total_servicetime+restime[i])-arriveTime);
                     total_servicetime++;
                     save_servicetime[i]--;
                     tmp_arrivetime[i]=total_servicetime;
                     ganttchatt[gc++]=processId;
-                    return_time[i]=total_servicetime-arriveTime;
+                    return_time[i]= (int) (total_servicetime-arriveTime);
                     break;
                 }
             }
         }
+        System.out.println("선점형 - 선점형 우선순위 스케줄링");
         Preemptive_Print_Process print_process=new Preemptive_Print_Process();
-        print_process.print(process_count,wait_time,tmp_processId,return_time,ganttchatt);
-    }
-
-    public static void main(String[] args) {
-        PreemptivePriority_Scheduling preemptive_scheduling = new PreemptivePriority_Scheduling();
-        preemptive_scheduling.run();
+        print_process.print(process_count,wait_time,tmp_processId,return_time,ganttchatt,response_time);
     }
 }
