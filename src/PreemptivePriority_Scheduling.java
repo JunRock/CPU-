@@ -24,6 +24,7 @@ public class PreemptivePriority_Scheduling {
         int [] save_servicetime=new int[process_count+1];
         int index = 0;
         int c=1;
+        int gc=0;
 
         for (int i = 1; i <= process_count; i++) {
             StringTokenizer st = new StringTokenizer(process[i]);
@@ -36,6 +37,7 @@ public class PreemptivePriority_Scheduling {
             }
         }
         Arrays.sort(tmp_priority);
+        String[] ganttchatt=new String[servicetime_sum];
 /*
 프로세스 정렬
  */
@@ -105,13 +107,14 @@ public class PreemptivePriority_Scheduling {
                     total_servicetime++;
                     save_servicetime[i]--;
                     tmp_arrivetime[i]=total_servicetime;
+                    ganttchatt[gc++]=processId;
                     return_time[i]=total_servicetime-arriveTime;
                     break;
                 }
             }
         }
         Preemptive_Print_Process print_process=new Preemptive_Print_Process();
-       // print_process.print(process_count,wait_time,tmp_processId,return_time);
+        print_process.print(process_count,wait_time,tmp_processId,return_time,ganttchatt);
     }
 
     public static void main(String[] args) {

@@ -63,7 +63,7 @@ public class SRT_Scheduling {
 
         Deque<String> tmp_q=new LinkedList<>();
         int c=0;
-        int ganttchart_count=0;
+        int gc=0;
         int total_servicetime=0;
 
         int tmp_index=1;
@@ -78,15 +78,20 @@ public class SRT_Scheduling {
                 save_servicetime[1] -= time_quantum;
                 total_servicetime += time_quantum;
                 tmp_arrivetime[1] = total_servicetime;
+                for(int m=0;m<time_quantum;m++)
+                    ganttchatt[gc++]=processId;
                 if (save_servicetime[1] == 0) {
                     return_time[1] = total_servicetime - arriveTime;
                     process[tmp_index++]=process_real[1];
                     break;
                 }
             }
+
             else if (save_servicetime[1] != 0 && save_servicetime[1] < time_quantum) {
                 wait_time[1] += (total_servicetime - tmp_arrivetime[1]);
                 total_servicetime += save_servicetime[1];
+                for(int m=0;m<save_servicetime[1];m++)
+                    ganttchatt[gc++]=processId;
             }
         }
 
@@ -105,6 +110,8 @@ public class SRT_Scheduling {
                     save_servicetime[index] -= time_quantum;
                     total_servicetime += time_quantum;
                     tmp_arrivetime[index] = total_servicetime;
+                    for(int m=0;m<time_quantum;m++)
+                        ganttchatt[gc++]=save_pid[index];
                     if (save_servicetime[index] == 0) {
                         StringTokenizer st=new StringTokenizer(process_real[index]);
                         st.nextToken();
@@ -118,12 +125,14 @@ public class SRT_Scheduling {
                 else if (save_servicetime[index] != 0 && save_servicetime[index] < time_quantum) {
                     wait_time[index] += (total_servicetime - tmp_arrivetime[index]);
                     total_servicetime += save_servicetime[index];
+                    for(int m=0;m<save_servicetime[index];m++)
+                        ganttchatt[gc++]=save_pid[index];
                 }
                 }
             }
 
         Preemptive_Print_Process print_process=new Preemptive_Print_Process();
-        //print_process.print(process_count,wait_time,save_pid,return_time);
+        print_process.print(process_count,wait_time,save_pid,return_time,ganttchatt);
     }
 
     public static void main(String[] args) {

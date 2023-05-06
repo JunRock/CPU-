@@ -37,7 +37,6 @@ public class RR_Scheduling {
         /*
         도착시간 정렬
          */
-        int same_Id=0;
         for(int i=1;i<=process_count;i++){
             for(int j=1;j<=process_count;j++){
                 StringTokenizer st=new StringTokenizer(process[j]);
@@ -97,7 +96,6 @@ public class RR_Scheduling {
                     }
                 }
         }
-
         Preemptive_Print_Process print_process=new Preemptive_Print_Process();
         print_process.print(process_count,wait_time,save_pid,return_time,ganttchatt);
     }
