@@ -8,6 +8,7 @@ public class SRT_Scheduling {
         String []process;
         process=fIle_open.open();
         int num=FIle_Open.num;
+
         int max=0;
         Queue<String> q=new LinkedList<>();
         int process_count=Integer.parseInt(process[0]);
@@ -37,6 +38,7 @@ public class SRT_Scheduling {
             }
         }
         Arrays.sort(tmp_time);
+        String[] ganttchatt=new String[servicetime_sum];
         /*
         도착시간 정렬
          */
@@ -61,6 +63,7 @@ public class SRT_Scheduling {
 
         Deque<String> tmp_q=new LinkedList<>();
         int c=0;
+        int ganttchart_count=0;
         int total_servicetime=0;
 
         int tmp_index=1;
@@ -119,20 +122,8 @@ public class SRT_Scheduling {
                 }
             }
 
-
-        int wait_sum=0;
-        int return_sum=0;
-        for(int i=1;i<=process_count;i++){
-            System.out.println(save_pid[i]+"의 대기시간: "+wait_time[i]);
-            wait_sum+=wait_time[i];
-        }
-        System.out.println("평균 대기 시간: "+(double)wait_sum/process_count);
-
-        for(int i=1;i<=process_count;i++){
-            System.out.println(save_pid[i]+"의 반환시간: "+return_time[i]);
-            return_sum+=return_time[i];
-        }
-        System.out.println("평균 반환 시간: "+(double)return_sum/process_count);
+        Preemptive_Print_Process print_process=new Preemptive_Print_Process();
+        //print_process.print(process_count,wait_time,save_pid,return_time);
     }
 
     public static void main(String[] args) {

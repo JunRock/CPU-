@@ -12,16 +12,32 @@ public class Nonpreemptive_Print_Process {
         int[] time = new int[process_count]; //프로세스 별 반환시간 저장배열
         int j=0;
         j = 0;
+
+        System.out.println("<간트차트>");
+
+        Iterator t=q.iterator();
+        while(t.hasNext()){
+            String str= (String) t.next();
+            StringTokenizer st=new StringTokenizer(str);
+            processId=st.nextToken();
+            st.nextToken();
+            serviceTime=Integer.parseInt(st.nextToken());
+            st.nextToken();
+            for(int i=0;i<serviceTime;i++)
+                System.out.print("["+processId+"]");
+        }
+        System.out.println();
         Iterator it = q.iterator();
         while (it.hasNext()) {
             String str = (String) it.next();
             StringTokenizer st = new StringTokenizer(str);
             while (st.hasMoreTokens()) {
-                System.out.print(st.nextToken() + "의 대기시간: "); //프로세스 ID
+                processId=st.nextToken();
                 arriveTime = Integer.parseInt(st.nextToken()); //도착시간
+                serviceTime = Integer.parseInt(st.nextToken()); //실행시간
+                System.out.print(processId+ "의 대기시간: "); //프로세스 ID
                 System.out.println(sum - arriveTime);
                 arrsum += (sum - arriveTime);
-                serviceTime = Integer.parseInt(st.nextToken()); //실행시간
                 sum += serviceTime;
                 time[j] = sum - arriveTime;
                 j++;

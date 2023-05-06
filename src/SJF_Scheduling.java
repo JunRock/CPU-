@@ -63,7 +63,6 @@ public class SJF_Scheduling {
                     }
 
                     if(count==0) {
-                        //total_servicetime+=serviceTime; &&arriveTime<=total_servicetime
                         if (serviceTime == tmp_servicetime[i-1]) {
                             q.add(process[k]);
                         }

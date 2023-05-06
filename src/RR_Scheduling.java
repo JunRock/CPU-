@@ -32,10 +32,12 @@ public class RR_Scheduling {
                 servicetime_sum+=serviceTime; //총 실행시간 저장
             }
         }
+        String[] ganttchatt=new String[servicetime_sum];
         Arrays.sort(tmp_time);
         /*
         도착시간 정렬
          */
+        int same_Id=0;
         for(int i=1;i<=process_count;i++){
             for(int j=1;j<=process_count;j++){
                 StringTokenizer st=new StringTokenizer(process[j]);
@@ -75,6 +77,8 @@ public class RR_Scheduling {
                                     save_servicetime[i] -= time_quantum;
                                     total_servicetime += time_quantum;
                                     tmp_arrivetime[i] = total_servicetime;
+                                    for(int m=0;m<time_quantum;m++)
+                                        ganttchatt[c++]=processId;
                                     if(save_servicetime[i]==0){
                                         return_time[i]=total_servicetime-arriveTime;
                                         break;
@@ -84,6 +88,8 @@ public class RR_Scheduling {
                                 else if (save_servicetime[i] != 0 && save_servicetime[i] < time_quantum) {
                                     wait_time[i] += (total_servicetime - tmp_arrivetime[i]);
                                     total_servicetime += save_servicetime[i];
+                                    for(int m=0;m<save_servicetime[i];m++)
+                                        ganttchatt[c++]=processId;
                                     q.add(str);
                                 }
                             }
@@ -91,19 +97,9 @@ public class RR_Scheduling {
                     }
                 }
         }
-        int wait_sum=0;
-        int return_sum=0;
-        for(int i=1;i<=process_count;i++){
-            System.out.println(save_pid[i]+"의 대기시간: "+wait_time[i]);
-            wait_sum+=wait_time[i];
-        }
-        System.out.println("평균 대기 시간: "+(double)wait_sum/process_count);
 
-        for(int i=1;i<=process_count;i++){
-            System.out.println(save_pid[i]+"의 반환시간: "+return_time[i]);
-            return_sum+=return_time[i];
-        }
-        System.out.println("평균 반환 시간: "+(double)return_sum/process_count);
+        Preemptive_Print_Process print_process=new Preemptive_Print_Process();
+        print_process.print(process_count,wait_time,save_pid,return_time,ganttchatt);
     }
 
     public static void main(String[] args) {

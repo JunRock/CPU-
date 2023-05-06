@@ -111,7 +111,7 @@ public class PreemptivePriority_Scheduling {
             }
         }
         Preemptive_Print_Process print_process=new Preemptive_Print_Process();
-        print_process.print(process_count,wait_time,tmp_processId,return_time);
+       // print_process.print(process_count,wait_time,tmp_processId,return_time);
     }
 
     public static void main(String[] args) {
