@@ -70,13 +70,15 @@ public class SRT_Scheduling extends Process_Variable{
         while(total_servicetime!=servicetime_sum) {
             int index=0;
             if (c!=process_count) {
-                int min=max;
+                int min=10000;
+                int dsd=1;
                 for(int i=1;i<=process_count;i++){
-                         if(min>=save_servicetime[i]&&save_servicetime[i]!=0&&tmp_arrivetime[i]<=total_servicetime){
-                             min=save_servicetime[i];
-                              index=i;
+                         if(min>=save_servicetime[i]&&save_servicetime[i]!=0&&tmp_arrivetime[i]<=total_servicetime&&min!=save_servicetime[i]){
+                                 min = save_servicetime[i];
+                                 index = i;
+                             }
                          }
-                     }
+
                 if (save_servicetime[index] >= time_quantum) {
                     wait_time[index] += (total_servicetime - tmp_arrivetime[index]); //대기시간 저장
                     save_servicetime[index] -= time_quantum;

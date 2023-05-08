@@ -41,4 +41,5 @@ public class Process_Variable {
     int[] response_time=new int[process_count+1];
     int[] restime=new int[process_count+1];
     int time_quantum=Integer.parseInt(process[num-1]);
+    int[] check=new int[process_count+1];
 }
