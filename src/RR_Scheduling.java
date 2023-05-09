@@ -9,7 +9,6 @@ public class RR_Scheduling extends Process_Variable{
         String[] tmp_process;
         tmp_process = process;
 
-
         for (int i = 1; i <= process_count; i++) {
             StringTokenizer st = new StringTokenizer(process[i]);
             processId = st.nextToken();
