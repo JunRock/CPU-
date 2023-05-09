@@ -1,29 +1,15 @@
 import java.util.*;
 
-public class RR_Scheduling extends Process_Variable{
+public class RR_Scheduling extends ProcessSort{
     public void run() {
         process = open();
-        Queue<String> q = new LinkedList<>();
+
         int c = 0;
         int total_servicetime = 0;
         String[] tmp_process;
         tmp_process = process;
-
-        for (int i = 1; i <= process_count; i++) {
-            StringTokenizer st = new StringTokenizer(process[i]);
-            processId = st.nextToken();
-            arriveTime = Integer.parseInt(st.nextToken());
-            serviceTime = Integer.parseInt(st.nextToken());
-            st.nextToken();
-            st.nextToken();
-            tmp_time[i] = (int) arriveTime;
-            if (arriveTime == 0)
-                q.add(process[i]);
-            servicetime_sum += serviceTime; //총 실행시간 저장
-        }
-
+        TimeSort();
         String[] ganttchatt = new String[servicetime_sum];
-        Arrays.sort(tmp_time);
 
         for (int i = 1; i <= process_count; i++) {
             for (int j = 1; j <= process_count; j++) {
@@ -121,7 +107,6 @@ public class RR_Scheduling extends Process_Variable{
                 }
             }
             }
-
             System.out.println("선점형 - 라운드로빈(RR)스케줄링");
             Preemptive_Print_Process print_process = new Preemptive_Print_Process();
             print_process.print(process_count, wait_time, tmp_processId, return_time, ganttchatt, response_time);

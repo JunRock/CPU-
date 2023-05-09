@@ -12,9 +12,7 @@ public class SJF_Scheduling extends Process_Variable{
                 serviceTime = Integer.parseInt(st.nextToken()); //실행시간
                 st.nextToken(); //우선순위
                 responseTime=Integer.parseInt(st.nextToken());//응답시간
-                /*
-                프로세스 도착시간 정렬
-                 */
+
                 if(arriveTime==0){ //도착시간이 0인 프로세스는 바로 큐에 삽입
                     q.add(process[i]);
                 }

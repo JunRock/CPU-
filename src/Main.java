@@ -8,12 +8,12 @@ public class Main {
         SRT_Scheduling srt=new SRT_Scheduling();
         PreemptivePriority_Scheduling pp=new PreemptivePriority_Scheduling();
 
-        //fcfs.run();
-        //sjf.run();
-        //hrn.run();
-        //np.run();
-        //rr.run();
+        fcfs.run();
+        sjf.run();
+        hrn.run();
+        np.run();
+        rr.run();
         srt.run();
-        //pp.run();
+        pp.run();
     }
 }

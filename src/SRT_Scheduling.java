@@ -1,23 +1,12 @@
 import java.util.*;
-public class SRT_Scheduling extends Process_Variable{
+public class SRT_Scheduling extends ProcessSort{
     public void run(){
         process=open();
         Queue<String> q=new LinkedList<>();
         String[] process_real=new String[process_count+1];
         int c=0,gc=0,total_servicetime=0,tmp_index=1,max=0;
 
-        for(int i=1;i<=process_count;i++){
-            StringTokenizer st=new StringTokenizer(process[i]);
-                processId=st.nextToken();
-                arriveTime=Integer.parseInt(st.nextToken());
-                serviceTime=Integer.parseInt(st.nextToken());
-                st.nextToken();st.nextToken();
-                tmp_time[i]= (int) arriveTime;
-                servicetime_sum+=serviceTime; //총 실행시간 저장
-                max= (int) Math.max(max,serviceTime);
-        }
-        Arrays.sort(tmp_time);
-
+        TimeSort();
         String[] ganttchatt=new String[servicetime_sum];
         /*
         도착시간 정렬

@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Process_Variable {
     static int num;
@@ -24,12 +27,15 @@ public class Process_Variable {
         }
         return process1;
     }
+    Queue<String> q = new LinkedList<>();
+    Deque<String> tmp_q=new LinkedList<>();
+    Deque<String> deque = new LinkedList<>();
     String process[]=open();
     double arriveTime, serviceTime,responseTime;
     String processId;
     int process_count=Integer.parseInt(process[0]);
     double sum=0;
-    int priority=0,servicetime_sum=0;
+    int priority=0,servicetime_sum=0,max=0;
     String[] tmp_processId = new String[process_count+1];
     int[] tmp_servicetime = new int[process_count+1];
     int[] tmp_arrivetime = new int[process_count+1];
