@@ -1,14 +1,14 @@
 import java.util.*;
 public class PreemptivePriority_Scheduling extends ProcessSort{
     public void run() {
-        process=open();
+        process= FileOpen();
         ArriveTimeSort();
         Vector<Integer>v=new Vector<>();
         Vector<Integer>sertime_v=new Vector<>();
         Vector<Integer>arrtime_v=new Vector<>();
         String[] cpu_process = new String[ProcessCount +1];
         int index = 0,c=1,gc=0;
-        String[] ganttchatt=new String[servicetime_sum];
+        String[] ganttchatt=new String[ServiceTimeSum];
 /*
 프로세스 정렬
  */
@@ -66,7 +66,7 @@ public class PreemptivePriority_Scheduling extends ProcessSort{
         }
 
         int total_servicetime=0;
-        while(total_servicetime!=servicetime_sum){
+        while(total_servicetime!= ServiceTimeSum){
             for(int i = 1; i<= ProcessCount; i++){
                 StringTokenizer CpuprocessToken=new StringTokenizer(cpu_process[i]);
                 ProcessId =CpuprocessToken.nextToken();

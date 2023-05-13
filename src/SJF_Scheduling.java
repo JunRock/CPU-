@@ -1,7 +1,7 @@
 import java.util.*;
 public class SJF_Scheduling extends ProcessSort{
     public void run(){
-        process=open();
+        process= FileOpen();
         ArriveTimeSort();
 
         for(int i = 1; i<= ProcessCount; i++){
@@ -14,7 +14,7 @@ public class SJF_Scheduling extends ProcessSort{
                     ServiceTime =Integer.parseInt(processToken.nextToken());
                     processToken.nextToken();processToken.nextToken();
                     /*
-                    이미 큐 안에 동일한 프로세스가 들어가 있는지 확인
+                    이미 덱 안에 동일한 프로세스가 들어가 있는지 확인
                     */
                     Iterator it=deque.iterator();
                     while(it.hasNext()){
@@ -22,13 +22,13 @@ public class SJF_Scheduling extends ProcessSort{
                         StringTokenizer QToken=new StringTokenizer(s);
                         while(QToken.hasMoreTokens()){
                             String Id=QToken.nextToken();
-                            if(Id.equals(ProcessId))
+                            if(Id.equals(ProcessId)) //덱에 동일한 프로세스가 있는지 확인
                                 count++;
                         }
                     }
 
-                    if(count==0) {
-                        if (ServiceTime == tmp_servicetime[i]) {
+                    if(count==0) { //동일한 프로세스가 없는 경우
+                        if (ServiceTime == tmp_servicetime[i]) { //정렬된 tmp_servicetime에 의해 가장 짧은 실행시간 프로세스를 덱에 삽입
                             deque.add(process[k]);
                         }
                     }

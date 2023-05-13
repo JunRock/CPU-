@@ -1,13 +1,13 @@
 import java.util.*;
 public class SRT_Scheduling extends ProcessSort{
     public void run(){
-        process=open();
+        process= FileOpen();
         int c=0,gc=0,total_servicetime=0,tmp_index=1,max=0;
         ArriveTimeSort();
         TimeSort();
-        String[] ganttchatt=new String[servicetime_sum];
+        String[] ganttchatt=new String[ServiceTimeSum];
 
-        StringTokenizer processrealToken=new StringTokenizer(process_real[1]);
+        StringTokenizer processrealToken=new StringTokenizer(SrtProcess[1]);
             ProcessId = processrealToken.nextToken();
             ArriveTime = Integer.parseInt(processrealToken.nextToken());
             ServiceTime = Integer.parseInt(processrealToken.nextToken());
@@ -22,7 +22,7 @@ public class SRT_Scheduling extends ProcessSort{
                     ganttchatt[gc++]= ProcessId;
                 if (SaveServiceTime[1] == 0) {
                     return_time[1] = (int) (total_servicetime - ArriveTime);
-                    process[tmp_index++]=process_real[1];
+                    process[tmp_index++]= SrtProcess[1];
                 }
             }
 
@@ -34,11 +34,10 @@ public class SRT_Scheduling extends ProcessSort{
                     ganttchatt[gc++]= ProcessId;
             }
 
-        while(total_servicetime!=servicetime_sum) {
+        while(total_servicetime!= ServiceTimeSum) {
             int index=0;
             if (c!= ProcessCount) {
                 int min=10000;
-                int dsd=1;
                 for(int i = 1; i<= ProcessCount; i++){
                          if(min>= SaveServiceTime[i]&& SaveServiceTime[i]!=0&&tmp_arrivetime[i]<=total_servicetime&&min!= SaveServiceTime[i]){
                                  min = SaveServiceTime[i];
@@ -56,7 +55,7 @@ public class SRT_Scheduling extends ProcessSort{
                     for(int m = 0; m< TimeQuantum; m++)
                         ganttchatt[gc++]=tmp_processId[index];
                     if (SaveServiceTime[index] == 0) {
-                        StringTokenizer processToken=new StringTokenizer(process_real[index]);
+                        StringTokenizer processToken=new StringTokenizer(SrtProcess[index]);
                         processToken.nextToken();
                         ArriveTime =Integer.parseInt(processToken.nextToken());
                         processToken.nextToken();processToken.nextToken();

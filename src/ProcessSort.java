@@ -9,13 +9,12 @@ public class ProcessSort extends Process_Variable{
             ArriveTime = Integer.parseInt(processToken.nextToken()); //도착시간
             ServiceTime = Integer.parseInt(processToken.nextToken()); //실행시간
             tmp_priority[i] = Integer.parseInt(processToken.nextToken()); //우선순위
-            processToken.nextToken(); //우선순위
+            processToken.nextToken(); //응답시간
             tmp_time[i] = (int) ArriveTime; //도착시간 모음배열
-            servicetime_sum+= ServiceTime;
+            ServiceTimeSum += ServiceTime;
             if (ArriveTime == 0){
                 q.add(process[i]);
                 deque.addLast(process[i]);
-                tmp_q.addLast(process[i]);
             }
             tmp_servicetime[i]= (int) ServiceTime; //실행시간 저장
             tmp_arrivetime[i]= (int) ArriveTime; //도착시간 저장
@@ -36,8 +35,8 @@ public class ProcessSort extends Process_Variable{
                 processToken.nextToken();//우선순위
                 ResponseTime =Integer.parseInt(processToken.nextToken());
                 if(tmp_time[i]== ArriveTime){
-                    process_real[i]=process[j];
-                    cpu_process[i] = process[j];
+                    SrtProcess[i]=process[j];
+                    NonpreemrtiveProcess[i] = process[j];
                     process[i] = tmp_process[i];
                     SaveServiceTime[i]= (int) ServiceTime;
                     tmp_arrivetime[i]= (int) ArriveTime;

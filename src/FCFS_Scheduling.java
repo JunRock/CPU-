@@ -1,9 +1,9 @@
 import java.util.*;
 public class FCFS_Scheduling extends ProcessSort{
     public void run() {
-        process=open();
+        process= FileOpen();
         Deque<String> q = new LinkedList<>();
-        ArriveTimeSort();
+        ArriveTimeSort(); //도착시간 순 정렬 함수
 
         for (int i = 1; i <= ProcessCount; i++) {
             for (int k = 1; k <= ProcessCount; k++) {
@@ -12,7 +12,7 @@ public class FCFS_Scheduling extends ProcessSort{
                     ArriveTime = Integer.parseInt(ProcessToken.nextToken());
                     ServiceTime =Integer.parseInt(ProcessToken.nextToken());
                     ProcessToken.nextToken();ProcessToken.nextToken();
-                    if (tmp_time[i] == ArriveTime){
+                    if (tmp_time[i] == ArriveTime){ //도착시간 순으로 q에 삽입
                         q.add(process[k]);
                     }
             }

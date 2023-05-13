@@ -28,10 +28,10 @@ public class Nonpreemptive_Print_Process extends Process_Variable{
                 ArriveTime = Integer.parseInt(strToken.nextToken()); //도착시간
                 ServiceTime = Integer.parseInt(strToken.nextToken()); //실행시간
                 System.out.print(ProcessId + "의 대기시간: "); //프로세스 ID
-                System.out.println(sum - ArriveTime);
-                arrsum += (sum - ArriveTime);
-                sum += ServiceTime;
-                time[j] = (int) (sum - ArriveTime);
+                System.out.println(ServiceTimeSum - ArriveTime);
+                arrsum += (ServiceTimeSum - ArriveTime);
+                ServiceTimeSum += ServiceTime;
+                time[j] = (int) (ServiceTimeSum - ArriveTime);
                 j++;
                 strToken.nextToken();strToken.nextToken(); //우선순위
         }

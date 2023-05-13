@@ -2,14 +2,14 @@ import java.util.*;
 
 public class RR_Scheduling extends ProcessSort{
     public void run() {
-        process = open();
+        process = FileOpen();
         int c = 0;
         int total_servicetime = 0;
         ArriveTimeSort();
         TimeSort();
-        String[] ganttchatt = new String[servicetime_sum];
+        String[] ganttchatt = new String[ServiceTimeSum];
 
-        while (total_servicetime != servicetime_sum) {
+        while (total_servicetime != ServiceTimeSum) {
             String str = q.poll();
             StringTokenizer strToken = new StringTokenizer(str);
             ProcessId = strToken.nextToken();
