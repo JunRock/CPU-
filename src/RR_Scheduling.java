@@ -10,19 +10,19 @@ public class RR_Scheduling extends ProcessSort{
         TimeSort();
         String[] ganttchatt = new String[servicetime_sum];
 
-        for (int i = 1; i <= process_count; i++) {
-            for (int j = 1; j <= process_count; j++) {
+        for (int i = 1; i <= ProcessCount; i++) {
+            for (int j = 1; j <= ProcessCount; j++) {
                 StringTokenizer tmpProcessToken = new StringTokenizer(tmp_process[j]);
-                processId = tmpProcessToken.nextToken();
-                arriveTime = Integer.parseInt(tmpProcessToken.nextToken());
-                serviceTime = Integer.parseInt(tmpProcessToken.nextToken());
+                ProcessId = tmpProcessToken.nextToken();
+                ArriveTime = Integer.parseInt(tmpProcessToken.nextToken());
+                ServiceTime = Integer.parseInt(tmpProcessToken.nextToken());
                 tmpProcessToken.nextToken();
                 tmpProcessToken.nextToken();
-                if (tmp_time[i] == arriveTime) {
-                    tmp_processId[i] = processId;
-                    tmp_arrivetime[i] = (int) arriveTime;
-                    tmp_servicetime[i] = (int) serviceTime;
-                    save_servicetime[i] = (int) serviceTime;
+                if (tmp_time[i] == ArriveTime) {
+                    tmp_processId[i] = ProcessId;
+                    tmp_arrivetime[i] = (int) ArriveTime;
+                    tmp_servicetime[i] = (int) ServiceTime;
+                    SaveServiceTime[i] = (int) ServiceTime;
                     check[i] = 1;
                     process[i] = tmp_process[i];
                 }
@@ -32,24 +32,24 @@ public class RR_Scheduling extends ProcessSort{
         while (total_servicetime != servicetime_sum) {
             String str = q.poll();
             StringTokenizer strToken = new StringTokenizer(str);
-            processId = strToken.nextToken();
-            arriveTime = Integer.parseInt(strToken.nextToken());
-            serviceTime = Integer.parseInt(strToken.nextToken());
+            ProcessId = strToken.nextToken();
+            ArriveTime = Integer.parseInt(strToken.nextToken());
+            ServiceTime = Integer.parseInt(strToken.nextToken());
             strToken.nextToken();
-            responseTime = Integer.parseInt(strToken.nextToken());
+            ResponseTime = Integer.parseInt(strToken.nextToken());
 
-            for (int i = 1; i <= process_count; i++) {
-                if (tmp_processId[i].equals(processId)) {
-                    if (total_servicetime >= arriveTime) {
+            for (int i = 1; i <= ProcessCount; i++) {
+                if (tmp_processId[i].equals(ProcessId)) {
+                    if (total_servicetime >= ArriveTime) {
                         check[i] = 0;
 
-                        if (save_servicetime[i] >= time_quantum) {
-                            for (int j = 1; j <= time_quantum; j++) {
+                        if (SaveServiceTime[i] >= TimeQuantum) {
+                            for (int j = 1; j <= TimeQuantum; j++) {
                                 wait_time[i] += (total_servicetime - tmp_arrivetime[i]); //대기시간 저장
-                                save_servicetime[i] -= 1;
+                                SaveServiceTime[i] -= 1;
                                 total_servicetime++;
 
-                                for (int m = 1; m <= process_count; m++) { //큐에 새로운 실행시간 안에 도착한 프로세스 삽입
+                                for (int m = 1; m <= ProcessCount; m++) { //큐에 새로운 실행시간 안에 도착한 프로세스 삽입
                                     StringTokenizer processToken = new StringTokenizer(process[m]);
                                     String processId1 = processToken.nextToken();
                                     int arriveTime1 = Integer.parseInt(processToken.nextToken());
@@ -63,22 +63,22 @@ public class RR_Scheduling extends ProcessSort{
                                 }
 
                                 if (response_time[i] == 0)
-                                    response_time[i] = (int) ((total_servicetime + responseTime) - arriveTime);
+                                    response_time[i] = (int) ((total_servicetime + ResponseTime) - ArriveTime);
                                 tmp_arrivetime[i] = total_servicetime;
-                                ganttchatt[c++] = processId;
-                                if (save_servicetime[i] == 0) {
-                                    return_time[i] = (int) (total_servicetime - arriveTime);
+                                ganttchatt[c++] = ProcessId;
+                                if (SaveServiceTime[i] == 0) {
+                                    return_time[i] = (int) (total_servicetime - ArriveTime);
                                     break;
                                 }
                             }
                             q.add(process[i]);
-                        } else if (save_servicetime[i] != 0 && save_servicetime[i] < time_quantum) {
-                            for (int j = 1; j <= time_quantum; j++) {
+                        } else if (SaveServiceTime[i] != 0 && SaveServiceTime[i] < TimeQuantum) {
+                            for (int j = 1; j <= TimeQuantum; j++) {
                                 wait_time[i] += (total_servicetime - tmp_arrivetime[i]); //대기시간 저장
-                                save_servicetime[i] -= 1;
+                                SaveServiceTime[i] -= 1;
                                 total_servicetime++;
 
-                                for (int m = 1; m <= process_count; m++) { //큐에 새로운 실행시간 안에 도착한 프로세스 삽입
+                                for (int m = 1; m <= ProcessCount; m++) { //큐에 새로운 실행시간 안에 도착한 프로세스 삽입
                                     StringTokenizer processToken = new StringTokenizer(process[m]);
                                     String processId1 = processToken.nextToken();
                                     int arriveTime1 = Integer.parseInt(processToken.nextToken());
@@ -92,11 +92,11 @@ public class RR_Scheduling extends ProcessSort{
                                 }
 
                                 if (response_time[i] == 0)
-                                    response_time[i] = (int) ((total_servicetime + responseTime) - arriveTime);
+                                    response_time[i] = (int) ((total_servicetime + ResponseTime) - ArriveTime);
                                 tmp_arrivetime[i] = total_servicetime;
-                                ganttchatt[c++] = processId;
-                                if (save_servicetime[i] == 0) {
-                                    return_time[i] = (int) (total_servicetime - arriveTime);
+                                ganttchatt[c++] = ProcessId;
+                                if (SaveServiceTime[i] == 0) {
+                                    return_time[i] = (int) (total_servicetime - ArriveTime);
                                     break;
                                 }
                             }
@@ -108,6 +108,6 @@ public class RR_Scheduling extends ProcessSort{
             }
             System.out.println("선점형 - 라운드로빈(RR)스케줄링");
             Preemptive_Print_Process print_process = new Preemptive_Print_Process();
-            print_process.print(process_count, wait_time, tmp_processId, return_time, ganttchatt, response_time);
+            print_process.print(ProcessCount, wait_time, tmp_processId, return_time, ganttchatt, response_time);
         }
     }

@@ -6,36 +6,36 @@ public class NonpreemptivePriority_Scheduling extends ProcessSort{
 
         Deque<String> q = new LinkedList<>();
         Queue<String> tmp_q = new LinkedList<>(); //동일한 우선순위일 경우 도착시간에 따른 정렬까지 마침
-        String[] cpu_process = new String[process_count+1];
+        String[] cpu_process = new String[ProcessCount +1];
         TimeSort();
 
-        for (int i = 1; i <= process_count; i++) {
-            for (int j = 1; j <= process_count; j++) {
+        for (int i = 1; i <= ProcessCount; i++) {
+            for (int j = 1; j <= ProcessCount; j++) {
                 StringTokenizer processToken = new StringTokenizer(process[j]);
-                    processId = processToken.nextToken();
-                    arriveTime = Integer.parseInt(processToken.nextToken());
-                    serviceTime = Integer.parseInt(processToken.nextToken());
+                    ProcessId = processToken.nextToken();
+                    ArriveTime = Integer.parseInt(processToken.nextToken());
+                    ServiceTime = Integer.parseInt(processToken.nextToken());
                     priority = Integer.parseInt(processToken.nextToken());
                     processToken.nextToken();
-                    if (tmp_arrivetime[i] == arriveTime) {
+                    if (tmp_arrivetime[i] == ArriveTime) {
                         cpu_process[i] = process[j];
                     }
             }
         }
 
-        String[] tmp_arr = new String[process_count-1];
-        String[] arr = new String[process_count-1];
-        int[] tmp_priority1 = new int[process_count-1];
-        int[] tmp_servicetime1 = new int[process_count-1];
-        int[] tmp_arrivetime1 = new int[process_count-1];
+        String[] tmp_arr = new String[ProcessCount -1];
+        String[] arr = new String[ProcessCount -1];
+        int[] tmp_priority1 = new int[ProcessCount -1];
+        int[] tmp_servicetime1 = new int[ProcessCount -1];
+        int[] tmp_arrivetime1 = new int[ProcessCount -1];
 
-        for (int i = 0; i < process_count-1; i++) {
+        for (int i = 0; i < ProcessCount -1; i++) {
             tmp_arr[i] = cpu_process[i+2]; //2 3 4 5 프로세스 정렬
         }
 
-        for (int i = 0; i <process_count-1; i++) {
+        for (int i = 0; i < ProcessCount -1; i++) {
             StringTokenizer processToken = new StringTokenizer(tmp_arr[i]);
-                processId = processToken.nextToken(); //프로세스 ID
+                ProcessId = processToken.nextToken(); //프로세스 ID
                 tmp_arrivetime1[i] = Integer.parseInt(processToken.nextToken()); //도착시간
                 tmp_servicetime1[i] = Integer.parseInt(processToken.nextToken()); //실행시간
                 tmp_priority1[i] = Integer.parseInt(processToken.nextToken()); //우선순위
@@ -43,14 +43,14 @@ public class NonpreemptivePriority_Scheduling extends ProcessSort{
         }
         Arrays.sort(tmp_priority1); //1 2 2 4
 
-        for(int i=0;i<process_count-1;i++){
+        for(int i = 0; i< ProcessCount -1; i++){
             int count=0;
-            for(int j=0;j<process_count-1;j++){
+            for(int j = 0; j< ProcessCount -1; j++){
                 StringTokenizer processToken=new StringTokenizer(tmp_arr[j]);
                 int mcount=0;
-                    processId=processToken.nextToken();
-                    arriveTime=Integer.parseInt(processToken.nextToken());
-                    serviceTime=Integer.parseInt(processToken.nextToken());
+                    ProcessId =processToken.nextToken();
+                    ArriveTime =Integer.parseInt(processToken.nextToken());
+                    ServiceTime =Integer.parseInt(processToken.nextToken());
                     priority=Integer.parseInt(processToken.nextToken());
                     processToken.nextToken();
                 Iterator iterator=q.iterator(); //큐에 동일 프로세스가 있는 지 확인
@@ -58,7 +58,7 @@ public class NonpreemptivePriority_Scheduling extends ProcessSort{
                     StringTokenizer QToken=new StringTokenizer((String) iterator.next());
                     String proId=QToken.nextToken();
                     QToken.nextToken();QToken.nextToken();QToken.nextToken();QToken.nextToken();
-                    if(processId.equals(proId))
+                    if(ProcessId.equals(proId))
                         mcount++;
                 }
                 if(tmp_priority1[i]==priority&& mcount==0){
@@ -91,6 +91,6 @@ public class NonpreemptivePriority_Scheduling extends ProcessSort{
         q.addFirst(cpu_process[1]);
         System.out.println("비선점형 - 비선점 우선순위 스케줄링");
         Nonpreemptive_Print_Process print_process=new Nonpreemptive_Print_Process();
-        print_process.print(q,process_count);
+        print_process.print(q, ProcessCount);
     }
 }
