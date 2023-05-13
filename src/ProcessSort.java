@@ -8,8 +8,10 @@ public class ProcessSort extends Process_Variable{
             processId = processToken.nextToken(); //프로세스 ID
             arriveTime = Integer.parseInt(processToken.nextToken()); //도착시간
             serviceTime = Integer.parseInt(processToken.nextToken()); //실행시간
-            processToken.nextToken();processToken.nextToken(); //우선순위
+            tmp_priority[i] = Integer.parseInt(processToken.nextToken()); //우선순위
+            processToken.nextToken(); //우선순위
             tmp_time[i] = (int) arriveTime; //도착시간 모음배열
+            //tmp_arrivetime[i] = Integer.parseInt(processToken.nextToken()); //도착시간
             servicetime_sum+=serviceTime;
             if (arriveTime == 0){
                 q.add(process[i]);
@@ -17,6 +19,6 @@ public class ProcessSort extends Process_Variable{
             }
         }
         Arrays.sort(tmp_time); //도착시간 정렬
-        //eturn tmp_time;
+        Arrays.sort(tmp_priority); //우선순위 정렬
     }
 }

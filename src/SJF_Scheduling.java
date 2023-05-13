@@ -5,13 +5,13 @@ public class SJF_Scheduling extends Process_Variable{
         Deque<String> q=new LinkedList<>();
 
         for (int i = 1; i <= process_count; i++) {
-            StringTokenizer st = new StringTokenizer(process[i]);
-            while (st.hasMoreTokens()) {
-                processId = st.nextToken(); //프로세스 ID
-                arriveTime = Integer.parseInt(st.nextToken()); //도착시간
-                serviceTime = Integer.parseInt(st.nextToken()); //실행시간
-                st.nextToken(); //우선순위
-                responseTime=Integer.parseInt(st.nextToken());//응답시간
+            StringTokenizer processsToken = new StringTokenizer(process[i]);
+            while (processsToken.hasMoreTokens()) {
+                processId = processsToken.nextToken(); //프로세스 ID
+                arriveTime = Integer.parseInt(processsToken.nextToken()); //도착시간
+                serviceTime = Integer.parseInt(processsToken.nextToken()); //실행시간
+                processsToken.nextToken(); //우선순위
+                responseTime=Integer.parseInt(processsToken.nextToken());//응답시간
 
                 if(arriveTime==0){ //도착시간이 0인 프로세스는 바로 큐에 삽입
                     q.add(process[i]);
@@ -27,21 +27,21 @@ public class SJF_Scheduling extends Process_Variable{
         for(int i=1;i<= process_count;i++){
             for(int k=1;k<= process_count;k++){
                 int count=0;
-                StringTokenizer st1=new StringTokenizer(process[k]);
-                while(st1.hasMoreTokens()){
-                    processId=st1.nextToken();
-                    arriveTime=Integer.parseInt(st1.nextToken());
-                    serviceTime=Integer.parseInt(st1.nextToken());
-                    st1.nextToken();st1.nextToken();
+                StringTokenizer processToken=new StringTokenizer(process[k]);
+                while(processToken.hasMoreTokens()){
+                    processId=processToken.nextToken();
+                    arriveTime=Integer.parseInt(processToken.nextToken());
+                    serviceTime=Integer.parseInt(processToken.nextToken());
+                    processToken.nextToken();processToken.nextToken();
                     /*
                     이미 큐 안에 동일한 프로세스가 들어가 있는지 확인
                     */
                     Iterator it=q.iterator();
                     while(it.hasNext()){
                         String s= (String) it.next();
-                        StringTokenizer s1=new StringTokenizer(s);
-                        while(s1.hasMoreTokens()){
-                            String Id=s1.nextToken();
+                        StringTokenizer QToken=new StringTokenizer(s);
+                        while(QToken.hasMoreTokens()){
+                            String Id=QToken.nextToken();
                             if(Id.equals(processId))
                                 count++;
                         }

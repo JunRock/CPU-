@@ -11,11 +11,11 @@ public class Nonpreemptive_Print_Process extends Process_Variable{
         Iterator t=q.iterator();
         while(t.hasNext()){
             String str= (String) t.next();
-            StringTokenizer st=new StringTokenizer(str);
-            processId=st.nextToken();
-            st.nextToken();
-            serviceTime=Integer.parseInt(st.nextToken());
-            st.nextToken();
+            StringTokenizer strToken=new StringTokenizer(str);
+            processId=strToken.nextToken();
+            strToken.nextToken();
+            serviceTime=Integer.parseInt(strToken.nextToken());
+            strToken.nextToken();
             for(int i=0;i<serviceTime;i++)
                 System.out.print("["+processId+"]");
         }
@@ -23,29 +23,29 @@ public class Nonpreemptive_Print_Process extends Process_Variable{
         Iterator it = q.iterator();
         while (it.hasNext()) {
             String str = (String) it.next();
-            StringTokenizer st = new StringTokenizer(str);
-                processId=st.nextToken();
-                arriveTime = Integer.parseInt(st.nextToken()); //도착시간
-                serviceTime = Integer.parseInt(st.nextToken()); //실행시간
+            StringTokenizer strToken = new StringTokenizer(str);
+                processId=strToken.nextToken();
+                arriveTime = Integer.parseInt(strToken.nextToken()); //도착시간
+                serviceTime = Integer.parseInt(strToken.nextToken()); //실행시간
                 System.out.print(processId+ "의 대기시간: "); //프로세스 ID
                 System.out.println(sum - arriveTime);
                 arrsum += (sum - arriveTime);
                 sum += serviceTime;
                 time[j] = (int) (sum - arriveTime);
                 j++;
-                st.nextToken();st.nextToken(); //우선순위
+                strToken.nextToken();strToken.nextToken(); //우선순위
         }
         System.out.println("평균 대기 시간(AWT): " + (double)arrsum / process_count);
 
         it=q.iterator();
         while(it.hasNext()){
             String str= (String) it.next();
-            StringTokenizer st=new StringTokenizer(str);
-            processId= st.nextToken();
-            arriveTime=Integer.parseInt(st.nextToken());
-            serviceTime=Integer.parseInt(st.nextToken());
-            st.nextToken();
-            retime=Integer.parseInt(st.nextToken());
+            StringTokenizer strToken=new StringTokenizer(str);
+            processId= strToken.nextToken();
+            arriveTime=Integer.parseInt(strToken.nextToken());
+            serviceTime=Integer.parseInt(strToken.nextToken());
+            strToken.nextToken();
+            retime=Integer.parseInt(strToken.nextToken());
             responseTime=(total_time+retime)-arriveTime;
             System.out.println(processId + "의 응답시간: " +responseTime); //프로세스 ID
             total_time+=serviceTime;
@@ -58,9 +58,9 @@ public class Nonpreemptive_Print_Process extends Process_Variable{
         it = q.iterator();
         while (it.hasNext()) {
             String str = (String) it.next();
-            StringTokenizer st = new StringTokenizer(str);
-                System.out.println(st.nextToken() + "의 반환시간: " + time[j]); //프로세스 ID
-                st.nextToken(); st.nextToken(); st.nextToken(); st.nextToken();
+            StringTokenizer strToken = new StringTokenizer(str);
+                System.out.println(strToken.nextToken() + "의 반환시간: " + time[j]); //프로세스 ID
+                strToken.nextToken(); strToken.nextToken(); strToken.nextToken(); strToken.nextToken();
             re_time_sum += time[j++];
         }
         System.out.println("평균 반환 시간(ATT): "+re_time_sum /process_count);

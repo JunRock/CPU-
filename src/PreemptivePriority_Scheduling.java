@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class PreemptivePriority_Scheduling extends Process_Variable{
+public class PreemptivePriority_Scheduling extends ProcessSort{
     public void run() {
         process=open();
 
@@ -19,6 +19,7 @@ public class PreemptivePriority_Scheduling extends Process_Variable{
                 servicetime_sum+=tmp_servicetime[i];
         }
         Arrays.sort(tmp_priority);
+
         String[] ganttchatt=new String[servicetime_sum];
 /*
 프로세스 정렬

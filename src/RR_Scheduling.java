@@ -3,7 +3,6 @@ import java.util.*;
 public class RR_Scheduling extends ProcessSort{
     public void run() {
         process = open();
-
         int c = 0;
         int total_servicetime = 0;
         String[] tmp_process;
@@ -13,12 +12,12 @@ public class RR_Scheduling extends ProcessSort{
 
         for (int i = 1; i <= process_count; i++) {
             for (int j = 1; j <= process_count; j++) {
-                StringTokenizer st = new StringTokenizer(tmp_process[j]);
-                processId = st.nextToken();
-                arriveTime = Integer.parseInt(st.nextToken());
-                serviceTime = Integer.parseInt(st.nextToken());
-                st.nextToken();
-                st.nextToken();
+                StringTokenizer tmpProcessToken = new StringTokenizer(tmp_process[j]);
+                processId = tmpProcessToken.nextToken();
+                arriveTime = Integer.parseInt(tmpProcessToken.nextToken());
+                serviceTime = Integer.parseInt(tmpProcessToken.nextToken());
+                tmpProcessToken.nextToken();
+                tmpProcessToken.nextToken();
                 if (tmp_time[i] == arriveTime) {
                     tmp_processId[i] = processId;
                     tmp_arrivetime[i] = (int) arriveTime;
@@ -32,12 +31,12 @@ public class RR_Scheduling extends ProcessSort{
 
         while (total_servicetime != servicetime_sum) {
             String str = q.poll();
-            StringTokenizer st = new StringTokenizer(str);
-            processId = st.nextToken();
-            arriveTime = Integer.parseInt(st.nextToken());
-            serviceTime = Integer.parseInt(st.nextToken());
-            st.nextToken();
-            responseTime = Integer.parseInt(st.nextToken());
+            StringTokenizer strToken = new StringTokenizer(str);
+            processId = strToken.nextToken();
+            arriveTime = Integer.parseInt(strToken.nextToken());
+            serviceTime = Integer.parseInt(strToken.nextToken());
+            strToken.nextToken();
+            responseTime = Integer.parseInt(strToken.nextToken());
 
             for (int i = 1; i <= process_count; i++) {
                 if (tmp_processId[i].equals(processId)) {
@@ -51,12 +50,12 @@ public class RR_Scheduling extends ProcessSort{
                                 total_servicetime++;
 
                                 for (int m = 1; m <= process_count; m++) { //큐에 새로운 실행시간 안에 도착한 프로세스 삽입
-                                    StringTokenizer st1 = new StringTokenizer(process[m]);
-                                    String processId1 = st1.nextToken();
-                                    int arriveTime1 = Integer.parseInt(st1.nextToken());
-                                    int serviceTime1 = Integer.parseInt(st1.nextToken());
-                                    st1.nextToken();
-                                    int responseTime1 = Integer.parseInt(st1.nextToken());
+                                    StringTokenizer processToken = new StringTokenizer(process[m]);
+                                    String processId1 = processToken.nextToken();
+                                    int arriveTime1 = Integer.parseInt(processToken.nextToken());
+                                    int serviceTime1 = Integer.parseInt(processToken.nextToken());
+                                    processToken.nextToken();
+                                    int responseTime1 = Integer.parseInt(processToken.nextToken());
                                     if (total_servicetime >= arriveTime1 && check[m] != 0) {
                                         q.add(process[m]);
                                         check[m] = 0;
@@ -80,12 +79,12 @@ public class RR_Scheduling extends ProcessSort{
                                 total_servicetime++;
 
                                 for (int m = 1; m <= process_count; m++) { //큐에 새로운 실행시간 안에 도착한 프로세스 삽입
-                                    StringTokenizer st1 = new StringTokenizer(process[m]);
-                                    String processId1 = st1.nextToken();
-                                    int arriveTime1 = Integer.parseInt(st1.nextToken());
-                                    int serviceTime1 = Integer.parseInt(st1.nextToken());
-                                    st1.nextToken();
-                                    int responseTime1 = Integer.parseInt(st1.nextToken());
+                                    StringTokenizer processToken = new StringTokenizer(process[m]);
+                                    String processId1 = processToken.nextToken();
+                                    int arriveTime1 = Integer.parseInt(processToken.nextToken());
+                                    int serviceTime1 = Integer.parseInt(processToken.nextToken());
+                                    processToken.nextToken();
+                                    int responseTime1 = Integer.parseInt(processToken.nextToken());
                                     if (total_servicetime >= arriveTime1 && check[m] != 0) {
                                         q.add(process[m]);
                                         check[m] = 0;

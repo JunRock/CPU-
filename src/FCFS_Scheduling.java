@@ -12,7 +12,7 @@ public class FCFS_Scheduling extends ProcessSort{
                     arriveTime = Integer.parseInt(st1.nextToken());
                     serviceTime=Integer.parseInt(st1.nextToken());
                     st1.nextToken();st1.nextToken();
-                    if (tmp_time[i] == arriveTime){
+                    if (tmp_arrivetime[i] == arriveTime){
                         q.add(process[k]);
                     }
             }

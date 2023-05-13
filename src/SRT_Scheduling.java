@@ -13,12 +13,12 @@ public class SRT_Scheduling extends ProcessSort{
          */
         for(int i=1;i<=process_count;i++){
             for(int j=1;j<=process_count;j++){
-                StringTokenizer st=new StringTokenizer(process[j]);
-                    processId=st.nextToken();
-                    arriveTime=Integer.parseInt(st.nextToken());
-                    serviceTime=Integer.parseInt(st.nextToken());
-                    st.nextToken();//우선순위
-                    responseTime=Integer.parseInt(st.nextToken());
+                StringTokenizer processToken=new StringTokenizer(process[j]);
+                    processId=processToken.nextToken();
+                    arriveTime=Integer.parseInt(processToken.nextToken());
+                    serviceTime=Integer.parseInt(processToken.nextToken());
+                    processToken.nextToken();//우선순위
+                    responseTime=Integer.parseInt(processToken.nextToken());
                     if(tmp_time[i]==arriveTime){
                         process_real[i]=process[j];
                         save_servicetime[i]= (int) serviceTime;
@@ -29,11 +29,11 @@ public class SRT_Scheduling extends ProcessSort{
             }
         }
 
-        StringTokenizer st1=new StringTokenizer(process_real[1]);
-            processId = st1.nextToken();
-            arriveTime = Integer.parseInt(st1.nextToken());
-            serviceTime = Integer.parseInt(st1.nextToken());
-            st1.nextToken();st1.nextToken();
+        StringTokenizer processrealToken=new StringTokenizer(process_real[1]);
+            processId = processrealToken.nextToken();
+            arriveTime = Integer.parseInt(processrealToken.nextToken());
+            serviceTime = Integer.parseInt(processrealToken.nextToken());
+            processrealToken.nextToken();processrealToken.nextToken();
             if (save_servicetime[1] >= time_quantum) {
                 wait_time[1] += (total_servicetime - tmp_arrivetime[1]); //대기시간 저장
                 save_servicetime[1] -= time_quantum;
@@ -78,10 +78,10 @@ public class SRT_Scheduling extends ProcessSort{
                     for(int m=0;m<time_quantum;m++)
                         ganttchatt[gc++]=tmp_processId[index];
                     if (save_servicetime[index] == 0) {
-                        StringTokenizer st=new StringTokenizer(process_real[index]);
-                        st.nextToken();
-                        arriveTime=Integer.parseInt(st.nextToken());
-                        st.nextToken();st.nextToken();
+                        StringTokenizer processToken=new StringTokenizer(process_real[index]);
+                        processToken.nextToken();
+                        arriveTime=Integer.parseInt(processToken.nextToken());
+                        processToken.nextToken();processToken.nextToken();
                         return_time[index] = (int) (total_servicetime - arriveTime);
                         c++;
                         continue;
