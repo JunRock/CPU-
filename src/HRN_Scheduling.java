@@ -1,19 +1,8 @@
 import java.util.*;
-public class HRN_Scheduling extends Process_Variable{
+public class HRN_Scheduling extends ProcessSort{
     public void run(){
         process=open();
-
-        for(int i = 1; i<= ProcessCount; i++){
-            StringTokenizer processToken=new StringTokenizer(process[i]);
-                ProcessId = processToken.nextToken();
-                ArriveTime = Double.parseDouble(processToken.nextToken());
-                ServiceTime = Double.parseDouble(processToken.nextToken());
-                processToken.nextToken();processToken.nextToken();
-                if (ArriveTime == 0) {
-                    deque.addLast(process[i]);
-                    tmp_q.addLast(process[i]);
-                }
-        }
+        ArriveTimeSort();
         /*
         덱에서 하나씩 꺼내서 HRN우선순위 판별
          */

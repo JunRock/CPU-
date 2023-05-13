@@ -5,29 +5,9 @@ public class RR_Scheduling extends ProcessSort{
         process = open();
         int c = 0;
         int total_servicetime = 0;
-        String[] tmp_process;
-        tmp_process = process;
+        ArriveTimeSort();
         TimeSort();
         String[] ganttchatt = new String[servicetime_sum];
-
-        for (int i = 1; i <= ProcessCount; i++) {
-            for (int j = 1; j <= ProcessCount; j++) {
-                StringTokenizer tmpProcessToken = new StringTokenizer(tmp_process[j]);
-                ProcessId = tmpProcessToken.nextToken();
-                ArriveTime = Integer.parseInt(tmpProcessToken.nextToken());
-                ServiceTime = Integer.parseInt(tmpProcessToken.nextToken());
-                tmpProcessToken.nextToken();
-                tmpProcessToken.nextToken();
-                if (tmp_time[i] == ArriveTime) {
-                    tmp_processId[i] = ProcessId;
-                    tmp_arrivetime[i] = (int) ArriveTime;
-                    tmp_servicetime[i] = (int) ServiceTime;
-                    SaveServiceTime[i] = (int) ServiceTime;
-                    check[i] = 1;
-                    process[i] = tmp_process[i];
-                }
-            }
-        }
 
         while (total_servicetime != servicetime_sum) {
             String str = q.poll();

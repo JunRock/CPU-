@@ -1,25 +1,13 @@
 import java.util.*;
-
 public class PreemptivePriority_Scheduling extends ProcessSort{
     public void run() {
         process=open();
-
+        ArriveTimeSort();
         Vector<Integer>v=new Vector<>();
         Vector<Integer>sertime_v=new Vector<>();
         Vector<Integer>arrtime_v=new Vector<>();
         String[] cpu_process = new String[ProcessCount +1];
         int index = 0,c=1,gc=0;
-        for (int i = 1; i <= ProcessCount; i++) {
-            StringTokenizer processToken = new StringTokenizer(process[i]);
-                tmp_processId[i] = processToken.nextToken(); //프로세스 ID
-                tmp_arrivetime[i] = Integer.parseInt(processToken.nextToken()); //도착시간
-                tmp_servicetime[i] = Integer.parseInt(processToken.nextToken()); //실행시간
-                tmp_priority[i] = Integer.parseInt(processToken.nextToken()); //우선순위
-                processToken.nextToken();
-                servicetime_sum+=tmp_servicetime[i];
-        }
-        Arrays.sort(tmp_priority);
-
         String[] ganttchatt=new String[servicetime_sum];
 /*
 프로세스 정렬

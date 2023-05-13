@@ -3,25 +3,11 @@ import java.util.*;
 public class NonpreemptivePriority_Scheduling extends ProcessSort{
     public void run(){
         process=open();
-
         Deque<String> q = new LinkedList<>();
         Queue<String> tmp_q = new LinkedList<>(); //동일한 우선순위일 경우 도착시간에 따른 정렬까지 마침
-        String[] cpu_process = new String[ProcessCount +1];
-        TimeSort();
 
-        for (int i = 1; i <= ProcessCount; i++) {
-            for (int j = 1; j <= ProcessCount; j++) {
-                StringTokenizer processToken = new StringTokenizer(process[j]);
-                    ProcessId = processToken.nextToken();
-                    ArriveTime = Integer.parseInt(processToken.nextToken());
-                    ServiceTime = Integer.parseInt(processToken.nextToken());
-                    priority = Integer.parseInt(processToken.nextToken());
-                    processToken.nextToken();
-                    if (tmp_arrivetime[i] == ArriveTime) {
-                        cpu_process[i] = process[j];
-                    }
-            }
-        }
+        ArriveTimeSort();
+        TimeSort();
 
         String[] tmp_arr = new String[ProcessCount -1];
         String[] arr = new String[ProcessCount -1];

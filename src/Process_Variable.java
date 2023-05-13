@@ -38,6 +38,9 @@ public class Process_Variable {
     double sum=0;
     int priority=0,servicetime_sum=0,max=0;
     String[] tmp_processId = new String[ProcessCount +1];
+    String[] process_real=new String[ProcessCount +1];
+    String[] cpu_process = new String[ProcessCount +1];
+    String[] tmp_process=process;
     int[] tmp_servicetime = new int[ProcessCount +1];
     int[] tmp_arrivetime = new int[ProcessCount +1];
     int[] tmp_priority = new int[ProcessCount +1];
@@ -49,5 +52,4 @@ public class Process_Variable {
     int[] restime=new int[ProcessCount +1];
     int TimeQuantum =Integer.parseInt(process[num-1]);
     int[] check=new int[ProcessCount +1];
-
 }
