@@ -1,12 +1,11 @@
 import java.util.*;
-
 public class NonpreemptivePriority_Scheduling extends ProcessSort{
     public void run(){
         process= FileOpen();
         Deque<String> q = new LinkedList<>();
         Queue<String> tmp_q = new LinkedList<>(); //동일한 우선순위일 경우 도착시간에 따른 정렬까지 마침
-        ArriveTimeSort();
-        TimeSort();
+        ArriveTimeSort(); //도착시간대로 정렬
+        TimeSort(); //정렬된 도착시간에 맞게 프로세스들의 각종 정보들 정렬
 
         String[] tmp_arr = new String[ProcessCount -1];
         String[] arr = new String[ProcessCount -1];

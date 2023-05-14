@@ -2,7 +2,7 @@ import java.util.*;
 public class HRN_Scheduling extends ProcessSort{
     public void run(){
         process= FileOpen();
-        ArriveTimeSort();
+        ArriveTimeSort(); //도착시간대로 정렬
         /*
         덱에서 하나씩 꺼내서 HRN우선순위 판별
          */

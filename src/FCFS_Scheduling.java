@@ -3,7 +3,7 @@ public class FCFS_Scheduling extends ProcessSort{
     public void run() {
         process= FileOpen();
         Deque<String> q = new LinkedList<>();
-        ArriveTimeSort(); //도착시간 순 정렬 함수
+        ArriveTimeSort(); //도착시간대로 정렬
 
         for (int i = 1; i <= ProcessCount; i++) {
             for (int k = 1; k <= ProcessCount; k++) {

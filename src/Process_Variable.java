@@ -30,7 +30,6 @@ public class Process_Variable {
 
     Queue<String> q = new LinkedList<>(); //프로세스 정보를 저장하는 Queue
     Deque<String> deque =new LinkedList<>(); //임시로 프로세스 정보를 저장하는 Deque
-    Deque<String> tmp_q = new LinkedList<>(); //프로세스 정보를 저장하는 Deque
     String process[]= FileOpen();
     double ArriveTime, ServiceTime, ResponseTime;
     String ProcessId;
