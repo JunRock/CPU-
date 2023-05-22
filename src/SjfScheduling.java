@@ -1,17 +1,17 @@
 import java.util.*;
-public class SJF_Scheduling extends ProcessSort{
+public class SjfScheduling extends ProcessSort{
     public void run(){
-        process= FileOpen();
-        ArriveTimeSort(); //도착시간대로 정렬
+        process= fileOpen();
+        arriveTimeSort(); //도착시간대로 정렬
 
-        for(int i = 1; i<= ProcessCount; i++){
-            for(int k = 1; k<= ProcessCount; k++){
+        for(int i = 1; i<= processCount; i++){
+            for(int k = 1; k<= processCount; k++){
                 int count=0;
                 StringTokenizer processToken=new StringTokenizer(process[k]);
                 while(processToken.hasMoreTokens()){
-                    ProcessId =processToken.nextToken();
-                    ArriveTime =Integer.parseInt(processToken.nextToken());
-                    ServiceTime =Integer.parseInt(processToken.nextToken());
+                    processId =processToken.nextToken();
+                    arriveTime =Integer.parseInt(processToken.nextToken());
+                    serviceTime =Integer.parseInt(processToken.nextToken());
                     processToken.nextToken();processToken.nextToken();
                     /*
                     이미 덱 안에 동일한 프로세스가 들어가 있는지 확인
@@ -22,13 +22,13 @@ public class SJF_Scheduling extends ProcessSort{
                         StringTokenizer QToken=new StringTokenizer(s);
                         while(QToken.hasMoreTokens()){
                             String Id=QToken.nextToken();
-                            if(Id.equals(ProcessId)) //덱에 동일한 프로세스가 있는지 확인
+                            if(Id.equals(processId)) //덱에 동일한 프로세스가 있는지 확인
                                 count++;
                         }
                     }
 
                     if(count==0) { //동일한 프로세스가 없는 경우
-                        if (ServiceTime == tmp_servicetime[i]) { //정렬된 tmp_servicetime에 의해 가장 짧은 실행시간 프로세스를 덱에 삽입
+                        if (serviceTime == tmpServiceTime[i]) { //정렬된 tmp_servicetime에 의해 가장 짧은 실행시간 프로세스를 덱에 삽입
                             deque.add(process[k]);
                         }
                     }
@@ -36,7 +36,7 @@ public class SJF_Scheduling extends ProcessSort{
             }
         }
         System.out.println("비선점형 - SJF스케줄링");
-        Nonpreemptive_Print_Process print_process=new Nonpreemptive_Print_Process();
-        print_process.print(deque, ProcessCount);
+        NonpreemptivePrintProcess print_process=new NonpreemptivePrintProcess();
+        print_process.print(deque, processCount);
     }
 }
